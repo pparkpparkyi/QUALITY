@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PCA 전까지 설명</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f6aaad9-5fcd-8024-908c-ebb1e524cc64" class="page sans"><header><img class="page-cover-image" src="images_(1).png" style="object-position:center 48.88%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">1️⃣</span></div><h1 class="page-title">PCA 전까지 설명</h1><p class="page-description"></p></header><div class="page-body"><h1 id="1f6aaad9-5fcd-806f-9c2b-de54cdf4ba1e" class="">🤔 지금 왜 이걸 하고 있을까?(PCA 전까지 설명)</h1><p id="1f6aaad9-5fcd-8008-8fd2-c70212b2444c" class=""><strong>→ 전기차 배터리 팩의 품질 이상을 조기에 감지하기 위해,<br/>센서 데이터를 기반으로 비정상 상태(NG)를 자동 판별할 수 있는 AI 모델을 만들기 위함.<br/></strong></p><ul id="1f6aaad9-5fcd-8081-b118-fb207d9fd158" class="bulleted-list"><li style="list-style-type:disc">✅ 정상과 NG를 구분할 수 있는 모델</li></ul><ul id="1f6aaad9-5fcd-800d-bcbb-d16aeb7571de" class="bulleted-list"><li style="list-style-type:disc">✅ NG 중에서도 충전/방전 패턴의 차이 인식</li></ul><ul id="1f6aaad9-5fcd-80af-b4e8-d0fefd1fe670" class="bulleted-list"><li style="list-style-type:disc">✅ 향후 품질 불량 사전 탐지 시스템에 적용 가능</li></ul><table id="1f6aaad9-5fcd-805a-a0a5-e1fcbf7d86ce" class="simple-table"><tbody><tr id="1f6aaad9-5fcd-801e-9578-d21651c622a9"><td id="TStj" class="" style="width:154.76953125px">목적</td><td id="ac;}" class="" style="width:560px">이유</td></tr><tr id="1f6aaad9-5fcd-8080-9f34-e5d44680f9de"><td id="TStj" class="" style="width:154.76953125px">✅ <strong>전처리</strong></td><td id="ac;}" class="" style="width:560px">센서 데이터를 모델이 읽기 쉬운 형태로 바꾸기 위함</td></tr><tr id="1f6aaad9-5fcd-80f1-ba30-c4039cd32312"><td id="TStj" class="" style="width:154.76953125px">✅ <strong>이상 탐지</strong></td><td id="ac;}" class="" style="width:560px">제품 품질(NG)을 자동으로 판단할 수 있는 모델 만들기 위함</td></tr><tr id="1f6aaad9-5fcd-803e-a868-e13ac7d3c831"><td id="TStj" class="" style="width:154.76953125px">✅ <strong>시각화/분석</strong></td><td id="ac;}" class="" style="width:560px">어떤 센서에서 이상이 나타나는지 패턴을 보기 위함</td></tr><tr id="1f6aaad9-5fcd-80c9-ac0d-e5a6757768c7"><td id="TStj" class="" style="width:154.76953125px">✅ <strong>학습/테스트 구분</strong></td><td id="ac;}" class="" style="width:560px">모델 학습과 평가를 분리하여 정확한 검증을 위함</td></tr></tbody></table><div id="1f6aaad9-5fcd-802f-8f3c-f08a904c46bb" class="column-list"><div id="1f6aaad9-5fcd-8067-8ed3-d10f54acaa25" style="width:31.25%" class="column"><h1 id="1f6aaad9-5fcd-8058-9447-fb6c7a50dde5" class="">🗂️ 폴더 구조 설명</h1><h3 id="1f6aaad9-5fcd-80b4-939b-c61172b591fb" class="">📁 <code>raw_data/</code></h3><ul id="1f6aaad9-5fcd-80a3-b179-c4b651078a8a" class="bulleted-list"><li style="list-style-type:disc">원본 CSV 데이터 (훈련용 &amp; 테스트용)</li></ul><h3 id="1f6aaad9-5fcd-8093-8fc1-de0f044839f0" class="">📁 <code>preprocessed/</code></h3><ul id="1f6aaad9-5fcd-8054-a9a1-c49136237996" class="bulleted-list"><li style="list-style-type:disc">전처리 완료된 파일 저장 위치<p id="1f6aaad9-5fcd-8061-96a1-de10a733c843" class="">→ 모델 학습 또는 예측에 직접 사용 가능</p></li></ul></div><div id="1f6aaad9-5fcd-80a7-9a5b-c00cb40a947d" style="width:68.75%" class="column"><h2 id="1f6aaad9-5fcd-805e-b516-cbbc4f952b3b" class="">📁 현재 파일 구조 (의미 포함 요약)</h2><table id="1f6aaad9-5fcd-80a1-93ae-e39aae8e3483" class="simple-table"><tbody><tr id="1f6aaad9-5fcd-809a-8f00-f705e5f35394"><td id="D}E}" class="">폴더</td><td id="_S]R" class="" style="width:303px">내용</td></tr><tr id="1f6aaad9-5fcd-8042-9b99-ed51f6cd467f"><td id="D}E}" class=""><code>raw_data/train/</code></td><td id="_S]R" class="" style="width:303px">무라벨 학습용 충전/방전 데이터</td></tr><tr id="1f6aaad9-5fcd-804b-ad84-fac1a6acbf41"><td id="D}E}" class=""><code>raw_data/test/</code></td><td id="_S]R" class="" style="width:303px">NG/OK 여부가 있는 테스트 데이터</td></tr><tr id="1f6aaad9-5fcd-80ce-a5c7-cabb54310fa6"><td id="D}E}" class=""><code>preprocessed/train/</code></td><td id="_S]R" class="" style="width:303px">전처리된 학습용 데이터</td></tr><tr id="1f6aaad9-5fcd-8088-a176-e186bccc8a31"><td id="D}E}" class=""><code>preprocessed/test/</code></td><td id="_S]R" class="" style="width:303px">전처리된 테스트 데이터</td></tr><tr id="1f6aaad9-5fcd-8092-a4ec-d4262946da76"><td id="D}E}" class=""><code>TestXX_OK/NG_chg/dchg.csv</code></td><td id="_S]R" class="" style="width:303px">OK/NG 상태의 라벨링된 검증용 데이터</td></tr></tbody></table></div></div><p id="1f6aaad9-5fcd-80be-8120-f07275505f33" class="">
+</p><div id="1f6aaad9-5fcd-8033-95ab-d6164abe335d" class="column-list"><div id="1f6aaad9-5fcd-8067-9e6f-d21a2edf2fde" style="width:31.25%" class="column"><figure id="1f6aaad9-5fcd-806f-921e-fa377a5fdc9a" class="image"><a href="image.png"><img style="width:720px" src="image.png"/></a></figure></div><div id="1f6aaad9-5fcd-8058-ac13-f10266527a7d" style="width:68.75%" class="column"><h2 id="1f6aaad9-5fcd-80e3-b9e0-db8c04a755d3" class="">1️⃣ 📁 <strong>데이터셋 이해 및 탐색</strong></h2><ul id="1f6aaad9-5fcd-80e4-880c-e62bdd85d041" class="bulleted-list"><li style="list-style-type:disc"><strong>raw_data 폴더</strong>에 저장된 CSV 파일들을 살펴봄.</li></ul><ul id="1f6aaad9-5fcd-8056-aa06-fb9f0eebab55" class="bulleted-list"><li style="list-style-type:disc">파일 이름 예시:<ul id="1f6aaad9-5fcd-8086-a975-e7579cd5ec94" class="bulleted-list"><li style="list-style-type:circle"><code>Test01_OK_chg.csv</code> → 테스트용 정상 충전 데이터</li></ul><ul id="1f6aaad9-5fcd-80f8-8754-edb868ee2b98" class="bulleted-list"><li style="list-style-type:circle"><code>Test07_NG_dchg.csv</code> → 테스트용 불량 방전 데이터</li></ul><ul id="1f6aaad9-5fcd-80ad-975b-eb038f195a5c" class="bulleted-list"><li style="list-style-type:circle"><code>1000_chg.csv</code>, <code>1001_dchg.csv</code> 등 → 훈련용 데이터</li></ul></li></ul><h3 id="1f6aaad9-5fcd-803e-9966-f589ed8b1196" class="">✔️ 각 파일이 의미하는 것</h3><table id="1f6aaad9-5fcd-80bc-b488-e30171f8f561" class="simple-table"><tbody><tr id="1f6aaad9-5fcd-806c-a800-dfa6b161dd60"><td id="fb~i" class="">파일명</td><td id="HPdC" class="" style="width:385px">의미</td></tr><tr id="1f6aaad9-5fcd-8087-a6b3-f237b141d423"><td id="fb~i" class=""><code>chg</code></td><td id="HPdC" class="" style="width:385px">충전 중 측정한 배터리 상태</td></tr><tr id="1f6aaad9-5fcd-80e3-830b-dadd9fba189f"><td id="fb~i" class=""><code>dchg</code></td><td id="HPdC" class="" style="width:385px">방전 중 측정한 배터리 상태</td></tr><tr id="1f6aaad9-5fcd-801d-97b9-c67d1a91838a"><td id="fb~i" class=""><code>OK</code></td><td id="HPdC" class="" style="width:385px">품질에 문제가 없는 정상 데이터</td></tr><tr id="1f6aaad9-5fcd-80a4-8354-ffec37fd2a00"><td id="fb~i" class=""><code>NG</code></td><td id="HPdC" class="" style="width:385px">품질 불량(이상치 또는 고장 가능성) 데이터</td></tr></tbody></table><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">💡 <strong>파일 구조 파악</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-80fa-9825-d359110cbb31" class="bulleted-list"><li style="list-style-type:disc"><code>raw_data/train/</code>, <code>raw_data/test/</code> 안에 <code>.csv</code> 파일들이 있음</li></ul><ul id="1f6aaad9-5fcd-8049-bfe2-f91f84dad306" class="bulleted-list"><li style="list-style-type:disc">각각 <code>충전(chg)</code>과 <code>방전(dchg)</code> 시의 데이터가 모듈별로 저장됨</li></ul><ul id="1f6aaad9-5fcd-8045-a48f-e9ebbd1ab6fe" class="bulleted-list"><li style="list-style-type:disc"><code>TestXX_*.csv</code>는 OK/NG 여부가 알려진 테스트 데이터</li></ul><ul id="1f6aaad9-5fcd-80f2-a99a-f39110b1f2bb" class="bulleted-list"><li style="list-style-type:disc"><code>10XX_chg.csv</code>, <code>10XX_dchg.csv</code>는 학습용 무라벨 데이터</li></ul></div></details></div></div><div id="1f6aaad9-5fcd-8002-9217-fd52253dbc6b" class="column-list"><div id="1f6aaad9-5fcd-80de-af8d-c809bf8ac2f2" style="width:50%" class="column"><h2 id="1f6aaad9-5fcd-80d3-8bd5-d8d096175329" class="">2️⃣ 🧹 <strong>전처리 과정</strong></h2><h3 id="1f6aaad9-5fcd-8011-9b63-eda2201ba50e" class="">📌 주요 전처리 단계</h3><table id="1f6aaad9-5fcd-807e-80b2-d1958188bcbe" class="simple-table"><tbody><tr id="1f6aaad9-5fcd-8023-a49e-daedea0fda9e"><td id="gmRK" class="">단계</td><td id="HuCo" class="" style="width:447px">설명</td></tr><tr id="1f6aaad9-5fcd-80e4-adb1-ef5369f18af8"><td id="gmRK" class="">① 상수값 제거</td><td id="HuCo" class="" style="width:447px"><code>removeConstant()</code> 사용 → 의미 없는 컬럼 제거</td></tr><tr id="1f6aaad9-5fcd-80fa-9516-fed8dc35944a"><td id="gmRK" class="">② 결측치 보완</td><td id="HuCo" class="" style="width:447px"><code>handleMissingValue()</code>로 NaN 보간 처리</td></tr><tr id="1f6aaad9-5fcd-8043-a075-ea7143184b8e"><td id="gmRK" class="">③ 전압 + 온도 센서 선택</td><td id="HuCo" class="" style="width:447px"><code>M01CVxx ~ M16CVxx</code> + <code>M01T01 ~ M16T02</code> 컬럼 추출</td></tr><tr id="1f6aaad9-5fcd-80f9-a65c-c621f5e58f00"><td id="gmRK" class="">④ 저장</td><td id="HuCo" class="" style="width:447px"><code>/data/preprocessed/</code> 경로에 전처리 결과 저장</td></tr></tbody></table><blockquote id="1f6aaad9-5fcd-8040-b8a9-cf0c7f852a73" class="">💡 훈련 데이터(train)와 테스트 데이터(test)가 동일한 컬럼 구성이어야 모델 적용 가능!</blockquote><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">⚡ <strong>전처리 함수 구성</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-80a1-a816-fc00c1b1a605" class="bulleted-list"><li style="list-style-type:disc"><code>removeConstant()</code> → 상수값만 있는 컬럼 제거</li></ul><ul id="1f6aaad9-5fcd-806d-8377-e95832921e25" class="bulleted-list"><li style="list-style-type:disc"><code>handleMissingValue()</code> → 결측치 채우기 (앞뒤 평균 또는 최빈값)</li></ul><ul id="1f6aaad9-5fcd-800a-ae77-f42cef016e47" class="bulleted-list"><li style="list-style-type:disc"><code>identify_outliers()</code> → 이상치 탐지 함수 (IQR 기반)</li></ul><ul id="1f6aaad9-5fcd-802e-9a0b-d20259164f17" class="bulleted-list"><li style="list-style-type:disc"><code>plotScatterMatrix()</code> 등 → 시각화를 통한 탐색</li></ul></div></details><h2 id="1f6aaad9-5fcd-8015-9918-f355f8071fb6" class="">3️⃣ ✅ <strong>훈련용 데이터 준비</strong></h2><ul id="1f6aaad9-5fcd-806c-a6cf-d4b5ac3723df" class="bulleted-list"><li style="list-style-type:disc">파일 예: <code>1000_chg.csv</code>, <code>1001_dchg.csv</code> 등</li></ul><ul id="1f6aaad9-5fcd-8026-96f5-cd0bda21803c" class="bulleted-list"><li style="list-style-type:disc">전처리 후 → <code>df_train</code> 또는 <code>df_train_x</code>로 저장</li></ul><ul id="1f6aaad9-5fcd-80e5-8cb1-efc3e5866164" class="bulleted-list"><li style="list-style-type:disc"><strong>목표:</strong> 모델을 학습시키기 위한 기준 데이터셋 구성</li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">⚡<strong>훈련 데이터 전처리</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-805f-9a91-fb59674327f3" class="bulleted-list"><li style="list-style-type:disc"><code>train/1000_chg.csv</code> 등 불러와서<ul id="1f6aaad9-5fcd-8089-9d8e-de8f9bd04d6a" class="bulleted-list"><li style="list-style-type:circle">상수 컬럼 제거</li></ul><ul id="1f6aaad9-5fcd-809d-ae57-d3db6c050cee" class="bulleted-list"><li style="list-style-type:circle">결측치 보정</li></ul><ul id="1f6aaad9-5fcd-80be-a898-c1f5d22cd3c9" class="bulleted-list"><li style="list-style-type:circle">전압(CV) + 온도(T) 데이터만 추출 (208개 컬럼 중 204~207개)</li></ul></li></ul><ul id="1f6aaad9-5fcd-8048-ab86-ff0b83e3e1df" class="bulleted-list"><li style="list-style-type:disc">최종적으로 <code>df_train</code> 데이터 저장:<p id="1f6aaad9-5fcd-8020-9bb6-ed4d70b1b729" class=""><code>./data/preprocessed/train/1000_chg.csv</code></p></li></ul></div></details><hr id="1f6aaad9-5fcd-80b5-a877-c02e6106d6ca"/><h2 id="1f6aaad9-5fcd-802b-8218-c579fe2a8c60" class="">4️⃣ ✅ <strong>테스트용 NG 데이터 전처리</strong></h2><ul id="1f6aaad9-5fcd-80d0-b76c-e2ab89db4bac" class="bulleted-list"><li style="list-style-type:disc"><code>Test05_NG_chg.csv</code>, <code>Test07_NG_dchg.csv</code>, <code>Test08_NG_chg.csv</code> 등 전처리 완료</li></ul><ul id="1f6aaad9-5fcd-805c-aaca-ed2b0b17eae5" class="bulleted-list"><li style="list-style-type:disc">전압+온도 컬럼만 추출하여 <code>df_test1</code>, <code>df_test2</code>, <code>df_test3</code> 생성</li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">⚡<strong>테스트 데이터 전처리</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-806c-8cdb-d5148a59b0ca" class="bulleted-list"><li style="list-style-type:disc"><code>Test05_NG_chg.csv</code> / <code>Test07_NG_dchg.csv</code> / <code>Test08_NG_chg.csv</code> 등<ul id="1f6aaad9-5fcd-80ad-83a1-c55d347b395f" class="bulleted-list"><li style="list-style-type:circle">상수 제거 → 208개 유지</li></ul><ul id="1f6aaad9-5fcd-80b9-805f-e937a702e33b" class="bulleted-list"><li style="list-style-type:circle">결측치 보정</li></ul><ul id="1f6aaad9-5fcd-80f1-89fd-f73a6022676a" class="bulleted-list"><li style="list-style-type:circle">필요한 컬럼만 추출 (<code>M01CV02</code><del><code>M16T02</code></del><del> 등 204</del>207개)</li></ul></li></ul><ul id="1f6aaad9-5fcd-80d7-82bc-e99f474e41ce" class="bulleted-list"><li style="list-style-type:disc">최종적으로 <code>df_testX</code> 형태로 저장</li></ul></div></details></div><div id="1f6aaad9-5fcd-8067-a6f1-f4fa6d5b3967" style="width:50%" class="column"><h2 id="1f6aaad9-5fcd-80ba-83d0-e554660073e5" class="">5️⃣ 🧠 <strong>이상치 탐지 모델 적용 준비</strong></h2><ul id="1f6aaad9-5fcd-80a2-8c63-e611a2d6ebf5" class="bulleted-list"><li style="list-style-type:disc"><code>IsolationForest</code> 모델을 통해 NG 데이터를 <strong>이상치로 감지</strong>할 수 있도록 준비</li></ul><ul id="1f6aaad9-5fcd-802a-ba2e-f95186092f46" class="bulleted-list"><li style="list-style-type:disc">훈련 데이터 기반으로 모델을 학습 후, <code>df_testX</code>에 예측 적용</li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">⚡<strong>이상 탐지용 모델 준비 (예: IsolationForest)</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-80af-b37e-e55b2d6cfca4" class="bulleted-list"><li style="list-style-type:disc"><code>df_train</code>으로 모델 학습</li></ul><ul id="1f6aaad9-5fcd-80ae-88c1-f0288f95e5b0" class="bulleted-list"><li style="list-style-type:disc"><code>df_testX</code>에 모델 적용해 <code>anomaly</code> 컬럼 생성<ul id="1f6aaad9-5fcd-8048-9a5f-dfe65009d81b" class="bulleted-list"><li style="list-style-type:circle"><code>1</code>: 정상</li></ul><ul id="1f6aaad9-5fcd-8041-ae70-f32005a54cc0" class="bulleted-list"><li style="list-style-type:circle"><code>1</code>: 이상치(NG)</li></ul></li></ul></div></details><h2 id="1f6aaad9-5fcd-80ce-bcb1-e3c9b84262a6" class="">6️⃣<strong>결과 저장 및 시각화</strong></h2><ul id="1f6aaad9-5fcd-807c-9aa4-e8803335f3a0" class="bulleted-list"><li style="list-style-type:disc">이상 탐지 결과를 csv에 저장하고, 특정 전압/온도 센서를 시각화하여 NG 구간 확인</li></ul><ul id="1f6aaad9-5fcd-8035-ab50-f2fe483eeb7c" class="bulleted-list"><li style="list-style-type:disc"><code>M01CV06</code> 같은 특정 센서 값의 이상 변화를 plot에 표현<figure id="1f6aaad9-5fcd-8055-a650-d8be204bea67" class="image"><a href="image%201.png"><img style="width:709.9609375px" src="image%201.png"/></a></figure></li></ul></div></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

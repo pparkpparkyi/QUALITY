@@ -1,0 +1,693 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PCA 이후</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f6aaad9-5fcd-80a4-ad27-f75310f13b61" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">2️⃣</span></div><h1 class="page-title">PCA 이후</h1><p class="page-description"></p></header><div class="page-body"><h1 id="1f6aaad9-5fcd-809c-9b38-dd1940c0f1d2" class="">🎯 프로젝트의 전체 목적은?</h1><p id="1f6aaad9-5fcd-806f-87b6-e5c71d8205da" class=""><strong>배터리 팩 품질 이상 감지</strong></p><p id="1f6aaad9-5fcd-80b9-9aaf-eb2ffae6fa87" class="">→ 비정상적인 전압/온도 패턴을 머신러닝으로 탐지하기 위한 <strong>비지도 이상 탐지 모델</strong>을 구축하는 것이 목표.</p><ul id="1f6aaad9-5fcd-8075-8e97-f07ed26d4b6e" class="bulleted-list"><li style="list-style-type:disc">데이터: 배터리 셀의 전압(MxxCVxx), 온도(MxxTxx), 평균 온도(Tavg) 등 센서 값 시계열</li></ul><ul id="1f6aaad9-5fcd-8005-9111-d91f737ac170" class="bulleted-list"><li style="list-style-type:disc">라벨 없음 → 직접 ‘정상/비정상’을 분류할 수 없음 → GAN 기반 비지도 학습 사용</li></ul><h1 id="1f6aaad9-5fcd-803e-97a3-e14d3fe57c9b" class="">🤯 내가 지금 뭘 하고 있는 걸까?</h1><p id="1f6aaad9-5fcd-805a-9c87-f4131e1ba364" class="">👉 <strong>한 줄 요약</strong></p><blockquote id="1f6aaad9-5fcd-806d-a11e-e7098ce10c05" class="">비정상 배터리 동작을 자동으로 탐지하는 인공지능을 만드는 중.<p id="1f6aaad9-5fcd-8071-bb27-fa8709e8cf34" class="">특히, “정상 vs 비정상” 라벨이 없기 때문에 <strong>GAN 기반 비지도 학습</strong>을 활용하고 있음.</p><blockquote id="1f6aaad9-5fcd-802b-b849-d89e10f54942" class="">지금 배터리 셀 전압/온도 데이터를 기반으로 이상 징후(불량 가능성)를 조기 탐지하는 모델을 학습 중</blockquote><ul id="1f6aaad9-5fcd-80b4-b5ee-ddfc7dda7e39" class="bulleted-list"><li style="list-style-type:disc"><strong>훈련 데이터 (</strong><code><strong>1000_chg.csv</strong></code><strong>)</strong>: 정상 데이터를 기반으로 학습함</li></ul><ul id="1f6aaad9-5fcd-8078-b530-c650d765cfc5" class="bulleted-list"><li style="list-style-type:disc"><strong>목표</strong>: 테스트 데이터에 대해 재구성 오류(Reconstruction Error)가 높으면 → <strong>이상으로 판단</strong></li></ul><ul id="1f6aaad9-5fcd-80ee-8ca8-e6e9e21a5d86" class="bulleted-list"><li style="list-style-type:disc">즉, <strong>&quot;정상만 학습한 모델이 비정상에 대해 이상반응을 보이게 함&quot;</strong> 이게 핵심 전</li></ul></blockquote><hr id="1f6aaad9-5fcd-8049-872c-d577f0aabe07"/><h1 id="1f6aaad9-5fcd-80b1-b892-d506c4f86a7d" class="">🙋 왜 중요한가?</h1><ul id="1f6aaad9-5fcd-8003-b526-c0b9cae8f041" class="bulleted-list"><li style="list-style-type:disc"><strong>배터리 팩 품질</strong>은 전기차/ESS 등 안전에 직결되는 핵심 요소</li></ul><ul id="1f6aaad9-5fcd-8042-8afc-fdb61bb4e73f" class="bulleted-list"><li style="list-style-type:disc">사람이 모든 센서를 일일이 감시하는 건 불가능 → <strong>AI로 자동 감지</strong></li></ul><ul id="1f6aaad9-5fcd-805b-8874-e23f433860d1" class="bulleted-list"><li style="list-style-type:disc">특히 <strong>라벨 없는 비정상 탐지</strong>는 현실적으로 매우 흔함 → 실무 적용성 높음</li></ul><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"> 1. <strong>데이터 로딩 및 전처리</strong></summary><div class="indented"><h3 id="1f6aaad9-5fcd-8003-90b4-c740488f631e" class="">📁 목적:</h3><ul id="1f6aaad9-5fcd-8039-9b73-f2bd890fe6fa" class="bulleted-list"><li style="list-style-type:disc">실험용 train/test 데이터를 로딩하고, 학습 가능한 형태로 정제</li></ul><h3 id="1f6aaad9-5fcd-80df-98bf-dfaddbcf59a9" class="">✔️ 작업 내용:</h3><ul id="1f6aaad9-5fcd-80c5-b2df-f9d53aad6aa7" class="bulleted-list"><li style="list-style-type:disc">파일 불러오기 (<code>1000_chg.csv</code>, <code>Test05_NG_chg.csv</code>, <code>Test07_NG_dchg.csv</code> 등)</li></ul><ul id="1f6aaad9-5fcd-8011-8898-dbb0444fc816" class="bulleted-list"><li style="list-style-type:disc">결측값 처리: <code>SimpleImputer</code>, 선형 보간 등</li></ul><ul id="1f6aaad9-5fcd-80fc-b926-f6e340450311" class="bulleted-list"><li style="list-style-type:disc">상수값/단일값 컬럼 제거 (<code>removeConstant</code>)</li></ul><ul id="1f6aaad9-5fcd-80f6-bc99-e41e1a8fedbc" class="bulleted-list"><li style="list-style-type:disc">이상치 제거 (IQR 방법)</li></ul><ul id="1f6aaad9-5fcd-8071-80c9-fa3d29353bd8" class="bulleted-list"><li style="list-style-type:disc">학습용으로 <code>Voltage</code>, <code>Temperature</code>만 필터링</li></ul></div></details><div id="1f6aaad9-5fcd-807f-9aa8-c81f62dee23c" class="column-list"><div id="1f6aaad9-5fcd-8096-8b74-f43a75111734" style="width:43.75%" class="column"><h3 id="1f6aaad9-5fcd-8076-9cbc-d5810b981154" class="">✅ 1. <strong>PCA 차원 축소</strong></h3><ul id="1f6aaad9-5fcd-807c-95ec-d80806d304ed" class="bulleted-list"><li style="list-style-type:disc">입력 데이터의 고차원(208개 feature)을 <code>PCA</code>를 통해 <strong>3개 차원</strong>으로 축소</li></ul><ul id="1f6aaad9-5fcd-8081-b976-f73c08c4c19d" class="bulleted-list"><li style="list-style-type:disc"><code>pca_1</code>, <code>pca_2</code>, <code>pca_3</code>이라는 컬럼으로 구성된 <code>df</code>를 생성</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-8067-bd6a-fc26c6350f80" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">PCA(n_components=3)
+→ df: [&#x27;pca_1&#x27;, &#x27;pca_2&#x27;, &#x27;pca_3&#x27;]</code></pre><ul id="1f6aaad9-5fcd-800a-b3b1-de64bd7b019f" class="bulleted-list"><li style="list-style-type:disc"><strong>왜?</strong>: 데이터 차원이 너무 높으면 학습이 어렵고, 잡음이 많아져 이상 탐지도 부정확해짐.</li></ul><ul id="1f6aaad9-5fcd-8099-b52b-e220ac8d7a4f" class="bulleted-list"><li style="list-style-type:disc"><strong>어떻게?</strong>: <code>1000_chg.csv</code> 파일을 불러와서 208개의 센서 데이터를 3개의 주요 성분(pca_1, pca_2, pca_3)으로 축소.</li></ul><ul id="1f6aaad9-5fcd-8078-81bf-f10f1ae2e7f4" class="bulleted-list"><li style="list-style-type:disc"><strong>결과 의미</strong>: 가장 많은 변동성을 설명하는 3개의 축으로 데이터를 재구성한 것. 이걸 기반으로 모델이 &quot;정상 vs 이상&quot;을 더 잘 구분할 수 있음.</li></ul></div><div id="1f6aaad9-5fcd-8024-aa7a-e559afc0e79b" style="width:56.25%" class="column"><h2 id="1f6aaad9-5fcd-8073-a4de-e622abf8c1dc" class="">1. <strong>PCA 차원 축소</strong></h2><h3 id="1f6aaad9-5fcd-806b-979d-e4299787b8ce" class="">📁 목적:</h3><ul id="1f6aaad9-5fcd-80f3-8764-c5e71dae82a7" class="bulleted-list"><li style="list-style-type:disc">200개가 넘는 센서 데이터를 3차원으로 압축해 시각화와 학습 가능성 확보</li></ul><ul id="1f6aaad9-5fcd-80a0-8b3f-d07929e922bf" class="bulleted-list"><li style="list-style-type:disc">불필요한 잡음 제거, 의미 있는 패턴 추출</li></ul><h3 id="1f6aaad9-5fcd-802d-b021-ca3fe6b2d934" class="">✔️ 작업 내용:</h3><ul id="1f6aaad9-5fcd-8008-8556-efdffa600535" class="bulleted-list"><li style="list-style-type:disc"><code>PCA(n_components=3)</code>로 차원 축소</li></ul><ul id="1f6aaad9-5fcd-808f-adab-e88d92c0292b" class="bulleted-list"><li style="list-style-type:disc">결과: <code>pca_1</code>, <code>pca_2</code>, <code>pca_3</code></li></ul><h3 id="1f6aaad9-5fcd-807f-ac81-f28f8f5132a0" class="">📊 결과 해석:</h3><ul id="1f6aaad9-5fcd-80d3-995d-dbcfb3f0fc32" class="bulleted-list"><li style="list-style-type:disc">각 principal component는 여러 센서 값의 <strong>결합된 변화 패턴</strong>을 대표</li></ul><ul id="1f6aaad9-5fcd-80dc-b673-c9679826fd31" class="bulleted-list"><li style="list-style-type:disc">3D 공간에 시계열을 매핑하면, 데이터의 구조적 패턴이 더 뚜렷하게 드러남</li></ul></div></div><hr id="1f6aaad9-5fcd-809f-ad1c-d4614576f4c9"/><div id="1f6aaad9-5fcd-8061-b423-d86fbc55695f" class="column-list"><div id="1f6aaad9-5fcd-80e4-8a58-ffef297ad28c" style="width:43.75%" class="column"><h3 id="1f6aaad9-5fcd-807b-accd-d24541846f6b" class="">✅ 2. <strong>시간 구간 집계 (Time Aggregation)</strong></h3><ul id="1f6aaad9-5fcd-8076-97ba-c3d7f3c7b1e0" class="bulleted-list"><li style="list-style-type:disc"><code>date</code>를 기준으로 지정한 <code>interval</code> 단위로 집계</li></ul><ul id="1f6aaad9-5fcd-807f-8edb-f150b7add1ac" class="bulleted-list"><li style="list-style-type:disc">집계 방식은 기본적으로 <code>mean</code> 평균값 사용</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-805d-b65d-e5b20a2d7646" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">X, index = time_segments_aggregate(...)</code></pre><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>Time Segment Aggregation</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-800a-9e39-dfeb72f52ce1" class="bulleted-list"><li style="list-style-type:disc"><strong>왜?</strong>: PCA된 데이터를 일정 시간 단위로 묶어서 대표값(평균)을 만들기 위해.</li></ul><ul id="1f6aaad9-5fcd-80cb-8bdc-fa9a3892aa01" class="bulleted-list"><li style="list-style-type:disc"><strong>어떻게?</strong>: <code>aggregate_interval=1</code>로 설정하여 1단위씩 시간 축 따라 묶음.</li></ul><ul id="1f6aaad9-5fcd-8058-892a-f12960d8ae5d" class="bulleted-list"><li style="list-style-type:disc"><strong>결과 의미</strong>: PCA 벡터들을 시계열 구조로 만들기 위한 전처리 단계. 이 시계열 구조가 나중에 LSTM 등에 들어갈 준비를 하는 것.</li></ul></div></details></div><div id="1f6aaad9-5fcd-80e4-9a72-c6aa053df60e" style="width:56.25%" class="column"><h2 id="1f6aaad9-5fcd-80e3-acce-dcb507d7ceb3" class="">2. <strong>시간 단위로 집계 (Aggregation)</strong></h2><h3 id="1f6aaad9-5fcd-80cd-9932-e0657c29aee0" class="">📁 목적:</h3><ul id="1f6aaad9-5fcd-8006-b7e5-ceead2ef453a" class="bulleted-list"><li style="list-style-type:disc">시계열 데이터를 일정 시간 단위로 평균값 집계 → 데이터 부드럽게 만들기</li></ul><h3 id="1f6aaad9-5fcd-80fd-97e3-d8b37c995cf9" class="">✔️ 작업 내용:</h3><ul id="1f6aaad9-5fcd-802c-b430-c26e6d597360" class="bulleted-list"><li style="list-style-type:disc"><code>time_segments_aggregate</code> 사용</li></ul><ul id="1f6aaad9-5fcd-800f-8447-d7374765019b" class="bulleted-list"><li style="list-style-type:disc">평균값 집계로 샘플 간 노이즈 감소</li></ul></div></div><hr id="1f6aaad9-5fcd-80a0-b560-edbf0a52abdb"/><div id="1f6aaad9-5fcd-8048-9e38-e5013e14e535" class="column-list"><div id="1f6aaad9-5fcd-8094-ba7d-f50e95bb44e9" style="width:50%" class="column"><h3 id="1f6aaad9-5fcd-8082-be16-cd5d2f3f86d0" class="">✅ 3. <strong>정규화</strong></h3><ul id="1f6aaad9-5fcd-8043-ad18-dcea1af727f1" class="bulleted-list"><li style="list-style-type:disc"><code>SimpleImputer</code>로 결측값 채우고</li></ul><ul id="1f6aaad9-5fcd-80de-9334-d7eae2133b22" class="bulleted-list"><li style="list-style-type:disc"><code>MinMaxScaler</code>로 [-1, 1] 범위로 <strong>스케일링</strong></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-8029-9f75-dbf329fa84c1" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">X = MinMaxScaler(feature_range=(-1, 1)).fit_transform(X)</code></pre><hr id="1f6aaad9-5fcd-80d8-bc53-c92d8d25c202"/><h3 id="1f6aaad9-5fcd-80f2-8163-e67b7cc73761" class="">✅ 4. <strong>윈도우 시퀀스 생성</strong></h3><ul id="1f6aaad9-5fcd-803a-8f62-cd218020135f" class="bulleted-list"><li style="list-style-type:disc">시계열 데이터를 고정된 윈도우 길이(<code>win_size=10</code>)로 나누어 학습 가능한 input 시퀀스로 변환</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-809e-a499-ebb6ba39e394" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">X, y = rolling_window_sequences(X, ...)
+→ X.shape = (5999, 10, 3)  # [batch, timesteps, features]
+→ y.shape = (5999, 1)      # 다음 시점의 </code></pre></div><div id="1f6aaad9-5fcd-8058-bd06-d1b89ffba54d" style="width:50%" class="column"><h2 id="1f6aaad9-5fcd-8079-b21a-caaad1847023" class="">3.4. <strong>정규화 및 윈도우 시퀀스 구성</strong></h2><h3 id="1f6aaad9-5fcd-80cf-b409-f43a1aa9c38f" class="">📁 목적:</h3><ul id="1f6aaad9-5fcd-80b7-bbaf-ec86ec5ab4e3" class="bulleted-list"><li style="list-style-type:disc">딥러닝 학습을 위해 입력 데이터를 정규화하고, 시계열을 고정된 길이로 분할</li></ul><h3 id="1f6aaad9-5fcd-8040-98f5-d1d8b3adc52d" class="">✔️ 작업 내용:</h3><ul id="1f6aaad9-5fcd-80b1-8616-c22ddb424422" class="bulleted-list"><li style="list-style-type:disc"><code>MinMaxScaler</code>로 [-1, 1] 정규화</li></ul><ul id="1f6aaad9-5fcd-80d6-93dd-d85994fb3ecb" class="bulleted-list"><li style="list-style-type:disc"><code>rolling_window_sequences</code>로 시계열을 <code>[win_size, features]</code> 형태로 슬라이딩 윈도우 생성</li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">🔄 <strong>Min-Max Scaling</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-80b3-8b25-c18cff1777a4" class="bulleted-list"><li style="list-style-type:disc"><strong>왜?</strong>: 신경망 학습에서 입력 값이 -1~1로 정규화되어 있어야 학습 안정성이 좋아짐.</li></ul><ul id="1f6aaad9-5fcd-8001-9971-f4c05b4498e5" class="bulleted-list"><li style="list-style-type:disc"><strong>어떻게?</strong>: Scikit-Learn의 <code>MinMaxScaler(feature_range=(-1, 1))</code> 사용.</li></ul><ul id="1f6aaad9-5fcd-808c-8ded-cb696ec1e860" class="bulleted-list"><li style="list-style-type:disc"><strong>결과 의미</strong>: PCA로 축소된 데이터를 동일한 스케일로 정렬하여 모델이 특정 변수에 편향되지 않도록 함.</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">🔁 <strong>Rolling Window 시퀀스 생성</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-80f3-abb8-fa2e8908cebb" class="bulleted-list"><li style="list-style-type:disc"><strong>왜?</strong>: 시계열 LSTM 기반 GAN 모델을 훈련시키기 위해 데이터를 고정 길이로 나눠야 함.</li></ul><ul id="1f6aaad9-5fcd-807a-99fc-f87be66cf949" class="bulleted-list"><li style="list-style-type:disc"><strong>어떻게?</strong>: <code>win_size=10</code>으로 설정 → (10, 3) 모양의 입력 시퀀스 생성.</li></ul><ul id="1f6aaad9-5fcd-800f-8991-c316152d6905" class="bulleted-list"><li style="list-style-type:disc"><strong>결과 의미</strong>: 각 입력은 10타임스텝의 PCA 시퀀스로, 이를 기반으로 미래를 예측하거나 이상을 감지.</li></ul></div></details></div></div><hr id="1f6aaad9-5fcd-808d-a6b4-f6d1ae418d4f"/><div id="1f6aaad9-5fcd-80eb-9545-c228b0d68a80" class="column-list"><div id="1f6aaad9-5fcd-80b0-b738-d6aeb2ad9939" style="width:43.75%" class="column"><h3 id="1f6aaad9-5fcd-80b3-886d-e07f1c8d1f48" class="">✅ 5. <strong>MTadGAN 모델 구성</strong></h3><ul id="1f6aaad9-5fcd-805d-adec-d0ef8f7e8722" class="bulleted-list"><li style="list-style-type:disc">총 4개의 주요 구성 요소 정의 및 구현:<ul id="1f6aaad9-5fcd-80af-a414-e876381d2c17" class="bulleted-list"><li style="list-style-type:circle"><code>Encoder</code>: 시계열 데이터를 latent vector로 인코딩</li></ul><ul id="1f6aaad9-5fcd-80c6-a46a-ce655038b8ca" class="bulleted-list"><li style="list-style-type:circle"><code>Generator</code>: latent vector를 시계열로 복원</li></ul><ul id="1f6aaad9-5fcd-80b8-9d90-e2993ac07137" class="bulleted-list"><li style="list-style-type:circle"><code>Critic_x</code>: 진짜 vs 가짜 시계열 비교</li></ul><ul id="1f6aaad9-5fcd-809d-b030-c1742427ed08" class="bulleted-list"><li style="list-style-type:circle"><code>Critic_z</code>: 진짜 vs 가짜 latent 비교</li></ul><ul id="1f6aaad9-5fcd-8018-8266-f543d6100065" class="bulleted-list"><li style="list-style-type:circle">Wasserstein Loss + Gradient Penalty 적용</li></ul><ul id="1f6aaad9-5fcd-8072-bd64-f07591692d96" class="bulleted-list"><li style="list-style-type:circle">모든 모델 구조 요약 출력 (<code>model.summary()</code>)</li></ul></li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">🧠 <strong>MTadGAN 모델 구조 정의</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-80ae-a1ad-fa3a5753b2b0" class="bulleted-list"><li style="list-style-type:disc"><strong>구성 요소</strong>:<ul id="1f6aaad9-5fcd-809a-bd3a-ebcb7e66c502" class="bulleted-list"><li style="list-style-type:circle"><strong>Encoder</strong>: 입력 시퀀스를 잠재 벡터 z로 압축</li></ul><ul id="1f6aaad9-5fcd-801e-bfde-f18b1c4b0bb2" class="bulleted-list"><li style="list-style-type:circle"><strong>Generator</strong>: 잠재 벡터 z를 다시 원래 시계열로 복원</li></ul><ul id="1f6aaad9-5fcd-8020-b263-d21a62477963" class="bulleted-list"><li style="list-style-type:circle"><strong>Critic_x / Critic_z</strong>: 진짜 시계열 / 진짜 z와 생성된 데이터를 구별하는 판별자</li></ul></li></ul><ul id="1f6aaad9-5fcd-8055-bef7-f9c3f7c8a769" class="bulleted-list"><li style="list-style-type:disc"><strong>왜?</strong>: 정상 데이터만 가지고 학습한 GAN이 <strong>정상적인 시계열 패턴만 잘 복원</strong>할 수 있기 때문.<p id="1f6aaad9-5fcd-8092-81cd-c14b49636763" class="">→ <strong>복원에 실패한 시퀀스</strong>는 <strong>이상 가능성 높음!</strong></p><p id="1fbaaad9-5fcd-8056-a2be-f4f2dee860a8" class="">
+</p></li></ul></div></details></div><div id="1f6aaad9-5fcd-8055-8477-f5bbfe2e508b" style="width:56.25%" class="column"><h2 id="1f6aaad9-5fcd-8008-b590-e2a77d5b272c" class="">5. <strong>MTadGAN 모델 구성</strong></h2><h3 id="1f6aaad9-5fcd-8014-8d5a-f2b6ac4b701a" class="">📁 목적:</h3><ul id="1f6aaad9-5fcd-8057-9e36-c4e1a44d8511" class="bulleted-list"><li style="list-style-type:disc">시계열 이상 감지를 위한 비지도 학습 GAN 모델 구성 (Multivariate Time-series Anomaly Detection GAN)</li></ul><h3 id="1f6aaad9-5fcd-80ab-b0c8-e35cd898cd96" class="">✔️ 구성 요소:</h3><table id="1f6aaad9-5fcd-80e6-98d7-dc3076ad8d3a" class="simple-table"><tbody><tr id="1f6aaad9-5fcd-80f1-bb08-f3fdb7bdb72d"><td id="oGBS" class="">구성</td><td id="@]wB" class="" style="width:320px">역할</td></tr><tr id="1f6aaad9-5fcd-800f-b032-d8a60a6f72f2"><td id="oGBS" class="">Encoder</td><td id="@]wB" class="" style="width:320px">입력 시계열을 latent vector로 변환</td></tr><tr id="1f6aaad9-5fcd-8081-83dc-c276d177dbec"><td id="oGBS" class="">Generator</td><td id="@]wB" class="" style="width:320px">latent vector를 다시 시계열로 복원</td></tr><tr id="1f6aaad9-5fcd-8046-b7bc-cb3698669317"><td id="oGBS" class="">Critic_x</td><td id="@]wB" class="" style="width:320px">복원된 시계열이 진짜/가짜인지 판별</td></tr><tr id="1f6aaad9-5fcd-806c-badb-e4f16f4e998b"><td id="oGBS" class="">Critic_z</td><td id="@]wB" class="" style="width:320px">latent vector가 진짜/가짜인지 판별</td></tr></tbody></table><ul id="1f6aaad9-5fcd-8096-801b-e02dc425d96b" class="bulleted-list"><li style="list-style-type:disc">Wasserstein Loss + Gradient Penalty (WGAN-GP) 사용</li></ul><ul id="1f6aaad9-5fcd-8011-8c89-f1f939aa1b60" class="bulleted-list"><li style="list-style-type:disc">모든 레이어에 Dropout, LSTM, Conv1D 사용으로 시계열 학습 강화</li></ul></div></div><hr id="1f6aaad9-5fcd-8032-80a6-e55051ccbb10"/><div id="1f6aaad9-5fcd-8039-839d-c59e316137d3" class="column-list"><div id="1f6aaad9-5fcd-8033-a0fa-dfb5b916de6d" style="width:31.25%" class="column"><h3 id="1f6aaad9-5fcd-80f3-9308-d64b9a2ffa03" class="">✅ 6. <strong>훈련 함수 정의</strong></h3><ul id="1f6aaad9-5fcd-80f1-b9bb-c70c18e1018e" class="bulleted-list"><li style="list-style-type:disc">각 구성 요소 별 훈련 함수 정의:<ul id="1f6aaad9-5fcd-80fd-80c7-c13bf8b2cbff" class="bulleted-list"><li style="list-style-type:circle"><code>critic_x_train_on_batch</code></li></ul><ul id="1f6aaad9-5fcd-8027-9c0e-eb9f0a76ff5f" class="bulleted-list"><li style="list-style-type:circle"><code>critic_z_train_on_batch</code></li></ul><ul id="1f6aaad9-5fcd-80bf-9a17-e1d9a30ae25d" class="bulleted-list"><li style="list-style-type:circle"><code>enc_gen_train_on_batch</code></li></ul></li></ul><ul id="1f6aaad9-5fcd-8046-a4b1-dad6e28701de" class="bulleted-list"><li style="list-style-type:disc"><code>@tf.function</code>으로 그래프 최적화</li></ul><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">🔁 <strong>Wasserstein Loss + Gradient Penalty로 훈련</strong></summary><div class="indented"><ul id="1f6aaad9-5fcd-8053-97a7-ecdef357fbfe" class="bulleted-list"><li style="list-style-type:disc"><strong>왜?</strong>: 훈련 안정성과 이상 감지 정확도를 높이기 위해 WGAN-GP 방식을 사용.</li></ul><ul id="1f6aaad9-5fcd-806c-875f-ceee3aee87c9" class="bulleted-list"><li style="list-style-type:disc"><strong>훈련 내용</strong>:<ul id="1f6aaad9-5fcd-80c5-ba50-d1eb121a0b38" class="bulleted-list"><li style="list-style-type:circle">Critic(x), Critic(z)는 5번 반복 학습.</li></ul><ul id="1f6aaad9-5fcd-80fb-9c55-f4670d884db5" class="bulleted-list"><li style="list-style-type:circle">Generator와 Encoder는 한 번 학습.</li></ul></li></ul><ul id="1f6aaad9-5fcd-80be-ae74-c228f95f4227" class="bulleted-list"><li style="list-style-type:disc"><strong>결과 의미</strong>:<ul id="1f6aaad9-5fcd-80d8-a108-d35c453aba03" class="bulleted-list"><li style="list-style-type:circle"><strong>Critic_x/z</strong>는 진짜/가짜 구별 능력을,</li></ul><ul id="1f6aaad9-5fcd-809f-94ac-e53a7c6a0193" class="bulleted-list"><li style="list-style-type:circle"><strong>Generator/Encoder</strong>는 복원 능력을 학습.</li></ul></li></ul></div></details></div><div id="1f6aaad9-5fcd-8002-b399-c191ca58b4eb" style="width:68.75%" class="column"><h2 id="1f6aaad9-5fcd-8015-882c-e33bc03ae1e6" class="">6. <strong>훈련 과정</strong></h2><h3 id="1f6aaad9-5fcd-8000-abe3-cc41206156e6" class="">📁 목적:</h3><ul id="1f6aaad9-5fcd-8088-93cd-cbc79c7958e5" class="bulleted-list"><li style="list-style-type:disc">GAN 구성 요소들을 학습시켜 모델이 &quot;정상&quot; 패턴을 학습하도록 유도</li></ul><h3 id="1f6aaad9-5fcd-80ea-b733-ed55b11e44f6" class="">✔️ 작업 내용:</h3><ul id="1f6aaad9-5fcd-80e6-ae8b-ec9bce301899" class="bulleted-list"><li style="list-style-type:disc">Epoch 수만큼 반복:<ul id="1f6aaad9-5fcd-80f2-9d1f-d3c0954c5931" class="bulleted-list"><li style="list-style-type:circle">Critic_x/z: 진짜 vs 가짜 구분 훈련</li></ul><ul id="1f6aaad9-5fcd-802c-8e35-c47e9ec0fe4a" class="bulleted-list"><li style="list-style-type:circle">Encoder/Generator: 진짜처럼 보이도록 생성 학습</li></ul></li></ul><ul id="1f6aaad9-5fcd-803b-9d10-ed23291cc212" class="bulleted-list"><li style="list-style-type:disc">각 epoch마다 loss 출력:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-808c-bcff-cc79c0bc977d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Epoch: 5/30, [Dx loss: 0.512] [Dz loss: 0.438] [G loss: 1.923]</code></pre></div></div><hr id="1f6aaad9-5fcd-808f-913f-deac95cd26a9"/><h3 id="1f6aaad9-5fcd-803c-9c88-e9fabc5ac1df" class="">✅ 7. <strong>MTadGAN 학습 루프 실행</strong></h3><ul id="1f6aaad9-5fcd-8027-8070-ebabb7223649" class="bulleted-list"><li style="list-style-type:disc">총 <code>epochs=30</code>동안 반복 학습 수행</li></ul><ul id="1f6aaad9-5fcd-8027-becf-ca957e4a3cf3" class="bulleted-list"><li style="list-style-type:disc">각 epoch마다:<ul id="1f6aaad9-5fcd-80e2-9f18-c4cfc22e16ed" class="bulleted-list"><li style="list-style-type:circle"><code>Critic_x</code>, <code>Critic_z</code>를 먼저 여러 번(<code>n_critic=5</code>) 학습</li></ul><ul id="1f6aaad9-5fcd-80be-9baa-fc3cff216a39" class="bulleted-list"><li style="list-style-type:circle">그 후 <code>Encoder</code>와 <code>Generator</code> 학습</li></ul></li></ul><ul id="1f6aaad9-5fcd-8054-ba75-e54eda9de90e" class="bulleted-list"><li style="list-style-type:disc">학습 로그 출력:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-802a-9c2b-d17a86342867" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Epoch: 1/30, [Dx loss: 0.12] [Dz loss: 0.09] [G loss: 1.23]
+...
+</code></pre><hr id="1f6aaad9-5fcd-8057-9c96-e31d15a09bd2"/><h3 id="1f6aaad9-5fcd-80c2-9019-fb03250498bf" class="">✅ 8. <strong>모델 저장</strong></h3><ul id="1f6aaad9-5fcd-805f-823c-d3fca3c1fff5" class="bulleted-list"><li style="list-style-type:disc">학습된 모델의 weight를 <code>.h5</code> 파일로 저장</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f6aaad9-5fcd-80df-afd2-cb37cf3e78ec" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">critic_x_model.save_weights(...)
+critic_z_model.save_weights(...)
+encoder_generator_model.save_weights(...)
+</code></pre><hr id="1f6aaad9-5fcd-804a-87e4-ca916f3950fd"/><h2 id="1f6aaad9-5fcd-80af-89b4-e7635635eab5" class="">🧭 지금까지의 전체 요약</h2><table id="1f6aaad9-5fcd-805c-a61f-fb81299b7156" class="simple-table"><tbody><tr id="1f6aaad9-5fcd-801f-8dd9-d966d0da4174"><td id="~Il}" class="">단계</td><td id="?|uA" class="" style="width:613px">내용</td></tr><tr id="1f6aaad9-5fcd-80af-a4e4-e23841376ddc"><td id="~Il}" class="">PCA</td><td id="?|uA" class="" style="width:613px">고차원 feature → 3차원 압축</td></tr><tr id="1f6aaad9-5fcd-809e-abe2-e84458c84e86"><td id="~Il}" class="">Aggregation</td><td id="?|uA" class="" style="width:613px">시간 기반 평균값으로 간결화</td></tr><tr id="1f6aaad9-5fcd-80bd-a15f-caccd28748c2"><td id="~Il}" class="">정규화</td><td id="?|uA" class="" style="width:613px">[-1, 1]로 스케일 통일</td></tr><tr id="1f6aaad9-5fcd-8025-bd0c-f88ebe9df67d"><td id="~Il}" class="">시퀀스화</td><td id="?|uA" class="" style="width:613px">LSTM 학습용 윈도우 시퀀스로 전환</td></tr><tr id="1f6aaad9-5fcd-80a5-9042-f381340e49df"><td id="~Il}" class="">모델 설계</td><td id="?|uA" class="" style="width:613px">MTadGAN 구조 구성 (Encoder, Generator, Critic_x/z)</td></tr><tr id="1f6aaad9-5fcd-801c-a538-c2335ef520dd"><td id="~Il}" class="">손실 함수</td><td id="?|uA" class="" style="width:613px">Wasserstein + Gradient Penalty</td></tr><tr id="1f6aaad9-5fcd-8081-a03e-d0e8f9eca238"><td id="~Il}" class="">학습 루프</td><td id="?|uA" class="" style="width:613px">비지도 학습 방식으로 GAN 훈련</td></tr><tr id="1f6aaad9-5fcd-8021-bde2-cfe169f248b1"><td id="~Il}" class="">모델 저장</td><td id="?|uA" class="" style="width:613px">향후 추론용으로 <code>.h5</code> 저장 완료</td></tr></tbody></table><hr id="1f6aaad9-5fcd-804c-a804-dd7339ac9512"/><p id="1f6aaad9-5fcd-8098-9762-e1fa8221cc2e" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
